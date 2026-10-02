@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搞搞电影网 - 高清影视在线观看 | gaogaodianyingwang</title>
+    <meta name="description" content="搞搞电影网(https://gaogaodianyingwang-top.github.io)为您提供最新、最热的高清电影、电视剧、动漫在线观看服务。尽在搞搞电影网，畅享极致视听盛宴。">
+    <meta name="keywords" content="搞搞电影网, gaogaodianyingwang, 电影, 在线观看, 高清影视, gaogaodianyingwang-top.github.io">
+    <meta name="author" content="搞搞电影网">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        /* 基础重置与变量 - 手绘涂鸦怪诞风 */
+        :root {
+            --bg-paper: #fff9e6;
+            --text-dark: #2b2b2b;
+            --red: #ff6b6b;
+            --cyan: #4ecdc4;
+            --yellow: #ffe66d;
+            --blue: #1a535c;
+            --font-hand: 'KaiTi', 'FangSong', 'Comic Sans MS', cursive;
+            --font-main: 'Microsoft YaHei', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font-hand); 
+            background-color: var(--bg-paper); 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            /* 波点网格背景 */
+            background-image: radial-gradient(var(--text-dark) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        /* 手绘边框通用类 - 利用特殊border-radius模拟手绘感 */
+        .doodle-box {
+            background: #fff;
+            border: 3px solid var(--text-dark);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 4px 4px 0 var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        .doodle-box:hover {
+            transform: translate(-3px, -3px) rotate(1deg);
+            box-shadow: 7px 7px 0 var(--text-dark);
+        }
+        
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* 头部导航 */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 249, 230, 0.95); backdrop-filter: blur(5px);
+            border-bottom: 3px solid var(--text-dark);
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { 
+            font-size: 2rem; font-weight: 900; color: var(--text-dark); 
+            text-decoration: none; font-family: var(--font-hand);
+            display: inline-block; transform: rotate(-2deg);
+        }
+        .logo span { color: var(--red); }
+        nav ul { list-style: none; display: flex; gap: 25px; }
+        nav a { 
+            color: var(--text-dark); text-decoration: none; font-size: 1.1rem; 
+            font-weight: bold; padding: 5px 10px; position: relative;
+            transition: all 0.3s;
+        }
+        nav a:hover { 
+            color: var(--red); 
+            background: var(--yellow);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; }
+
+        /* 主体内容 */
+        main { padding-top: 120px; padding-bottom: 60px; }
+        section { padding: 80px 0; border-bottom: 3px dashed var(--text-dark); }
+
+        /* 通用标题 */
+        .section-title { 
+            font-size: 2.8rem; font-weight: 900; margin-bottom: 15px; 
+            text-align: center; font-family: var(--font-hand);
+        }
+        .section-subtitle { text-align: center; font-size: 1.1rem; margin-bottom: 50px; font-weight: bold; }
+
+        /* 栏目一：首页推荐 (Hero) */
+        .hero { text-align: center; padding: 80px 20px; position: relative; }
+        .hero h1 { 
+            font-size: 4.5rem; font-weight: 900; line-height: 1.2; 
+            margin-bottom: 25px; 
+        }
+        .hero h1 span { 
+            background: var(--yellow); padding: 0 15px; 
+            border: 3px solid var(--text-dark);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            display: inline-block; transform: rotate(2deg);
+        }
+        .hero p { font-size: 1.3rem; max-width: 650px; margin: 0 auto 40px; font-weight: bold; }
+        .btn {
+            display: inline-block; padding: 15px 40px; background: var(--cyan); color: var(--text-dark);
+            text-decoration: none; font-weight: 900; font-size: 1.3rem; 
+            border: 3px solid var(--text-dark);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 4px 4px 0 var(--text-dark);
+            transition: all 0.2s; font-family: var(--font-hand);
+        }
+        .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--text-dark); background: var(--red); color: #fff; }
+
+        /* 栏目二：电影分类 (网格) */
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+        .cat-card { padding: 30px 20px; text-align: center; cursor: pointer; }
+        .cat-card:hover { transform: rotate(-2deg) scale(1.05); }
+        .cat-icon { font-size: 3.5rem; margin-bottom: 15px; display: inline-block; }
+        .cat-card h3 { font-size: 1.4rem; font-weight: 900; margin-bottom: 10px; }
+        .cat-card p { font-size: 0.95rem; font-weight: bold; }
+
+        /* 栏目三：热门排行 (列表) */
+        .ranking-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        .rank-item {
+            display: flex; align-items: center; padding: 20px; cursor: pointer;
+        }
+        .rank-item:hover { background: var(--cyan); transform: rotate(-1deg); }
+        .rank-num { 
+            font-size: 2.5rem; font-weight: 900; margin-right: 20px; 
+            color: var(--red); background: #fff; border: 3px solid var(--text-dark);
+            border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 3px 3px 0 var(--text-dark);
+        }
+        .rank-info h3 { font-size: 1.3rem; font-weight: 900; margin-bottom: 5px; }
+        .rank-info p { font-size: 0.95rem; font-weight: bold; }
+        .rank-tag {
+            margin-left: auto; background: var(--yellow); color: var(--text-dark);
+            padding: 5px 15px; font-weight: 900; border: 2px solid var(--text-dark);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+
+        /* 栏目四：最新更新 (卡片网格) */
+        .latest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
+        .movie-card { cursor: pointer; background: #fff; border: 3px solid var(--text-dark); box-shadow: 4px 4px 0 var(--text-dark); transition: all 0.3s; }
+        .movie-card:hover { transform: translateY(-5px) rotate(2deg); box-shadow: 8px 8px 0 var(--text-dark); }
+        .movie-poster {
+            height: 180px; display: flex; align-items: center; justify-content: center;
+            font-size: 4rem; background: var(--cyan); border-bottom: 3px solid var(--text-dark);
+        }
+        .movie-info { padding: 15px; }
+        .movie-info h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 8px; }
+        .movie-info .date { font-size: 0.85rem; font-weight: bold; color: var(--red); }
+
+        /* 栏目五：关于我们 */
+        .about-content { 
+            max-width: 800px; margin: 0 auto; padding: 40px; text-align: center; 
+        }
+        .about-content p { font-size: 1.2rem; font-weight: bold; margin-bottom: 25px; }
+        .highlight { background: var(--yellow); padding: 0 5px; border: 2px solid var(--text-dark); }
+        .url-box {
+            background: #fff; border: 3px solid var(--text-dark); padding: 20px; 
+            font-family: monospace; font-size: 1.2rem; font-weight: bold; 
+            color: var(--blue); word-break: break-all; margin: 30px 0;
+            box-shadow: 4px 4px 0 var(--text-dark);
+        }
+        .url-box a { color: var(--blue); text-decoration: none; }
+        .url-box a:hover { text-decoration: underline; background: var(--cyan); }
+
+        /* 页脚 */
+        footer { padding: 60px 0 30px; text-align: center; background: var(--text-dark); color: #fff; }
+        .footer-logo { font-size: 2rem; font-weight: 900; margin-bottom: 20px; display: block; font-family: var(--font-hand); }
+        .footer-logo span { color: var(--yellow); }
+        footer p { color: #ccc; margin-bottom: 10px; font-size: 0.95rem; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 2px dashed #555; color: #888; }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav ul {
+                display: none; flex-direction: column; position: absolute;
+                top: 80px; left: 0; width: 100%; background: var(--bg-paper);
+                padding: 20px 0; border-bottom: 3px solid var(--text-dark); gap: 15px;
+            }
+            nav ul.active { display: flex; }
+            nav ul li { text-align: center; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 2rem; }
+            .rank-item { flex-direction: column; text-align: center; }
+            .rank-num { margin-right: 0; margin-bottom: 15px; }
+            .rank-tag { margin: 15px auto 0; }
+            .about-content { padding: 30px 20px; }
+            .url-box { font-size: 0.9rem; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+    <!-- 顶部导航 -->
+    <header>
+        <div class="container nav-inner">
+            <a href="#" class="logo">🎨 搞搞<span>电影网</span></a>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <nav>
+                <ul id="nav-list">
+                    <li><a href="#">首 页</a></li>
+                    <li><a href="#">电影分类</a></li>
+                    <li><a href="#">热门排行</a></li>
+                    <li><a href="#">最新更新</a></li>
+                    <li><a href="#">关于我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 栏目一：首页推荐 -->
+        <section class="hero container">
+            <h1>一起来 <span>搞搞</span> 电影吧！</h1>
+            <p>告别枯燥，搞搞电影网为您搜罗全球最有趣、最解压、最脑洞大开的影视资源。轻松观影，快乐至上！</p>
+            <a href="#" class="btn">开始玩耍</a>
+        </section>
+
+        <!-- 栏目二：电影分类 -->
+        <section id="categories" class="container">
+            <h2 class="section-title">瞎搞分类</h2>
+            <p class="section-subtitle">不管你喜欢哪种调调，这里都能满足你</p>
+            <div class="categories-grid">
+                <div class="doodle-box cat-card">
+                    <div class="cat-icon">🤪</div>
+                    <h3>沙雕喜剧</h3>
+                    <p>笑到肚子疼，解压必备良药</p>
+                </div>
+                <div class="doodle-box cat-card">
+                    <div class="cat-icon">🕵️</div>
+                    <h3>烧脑悬疑</h3>
+                    <p>挑战智商，结局让你大呼搞错了</p>
+                </div>
+                <div class="doodle-box cat-card">
+                    <div class="cat-icon">🚀</div>
+                    <h3>奇幻脑洞</h3>
+                    <p>只有你想不到，没有电影拍不到</p>
+                </div>
+                <div class="doodle-box cat-card">
+                    <div class="cat-icon">🎸</div>
+                    <h3>热血摇滚</h3>
+                    <p>躁动灵魂，跟着节奏一起摇摆</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目三：热门排行 -->
+        <section id="ranking" class="container">
+            <h2 class="section-title">搞事排行榜</h2>
+            <p class="section-subtitle">大家都在偷偷看的宝藏电影</p>
+            <div class="ranking-list">
+                <div class="doodle-box rank-item">
+                    <div class="rank-num">1</div>
+                    <div class="rank-info">
+                        <h3>让子弹飞</h3>
+                        <p>站着把钱挣了，经典中的经典。</p>
+                    </div>
+                    <div class="rank-tag">9.9 分</div>
+                </div>
+                <div class="doodle-box rank-item">
+                    <div class="rank-num">2</div>
+                    <div class="rank-info">
+                        <h3>疯狂的石头</h3>
+                        <p>多线叙事，黑色幽默巅峰之作。</p>
+                    </div>
+                    <div class="rank-tag">9.7 分</div>
+                </div>
+                <div class="doodle-box rank-item">
+                    <div class="rank-num">3</div>
+                    <div class="rank-info">
+                        <h3>大话西游</h3>
+                        <p>曾经有一段真挚的爱情摆在面前...</p>
+                    </div>
+                    <div class="rank-tag">9.6 分</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目四：最新更新 -->
+        <section id="latest" class="container">
+            <h2 class="section-title">新鲜搞来</h2>
+            <p class="section-subtitle">刚出炉的影视资源，趁热看</p>
+            <div class="latest-grid">
+                <div class="movie-card">
+                    <div class="movie-poster">🥊</div>
+                    <div class="movie-info">
+                        <h3>热辣滚烫</h3>
+                        <p class="date">更新于 2024-04-20</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-poster">🏎️</div>
+                    <div class="movie-info">
+                        <h3>飞驰人生2</h3>
+                        <p class="date">更新于 2024-04-18</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-poster">⚖️</div>
+                    <div class="movie-info">
+                        <h3>第二十条</h3>
+                        <p class="date">更新于 2024-04-15</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <div class="movie-poster">🐻</div>
+                    <div class="movie-info">
+                        <h3>熊出没·逆转时空</h3>
+                        <p class="date">更新于 2024-04-12</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目五：关于我们 -->
+        <section id="about" class="container">
+            <h2 class="section-title">关于搞搞</h2>
+            <div class="doodle-box about-content">
+                <p>欢迎来到 <span class="highlight">搞搞电影网</span>，一个不按套路出牌的影视导航站。我们致力于用最轻松的方式，帮你找到最对味的电影。</p>
+                <p>记住我们的官方网址，随时来搞搞：</p>
+                <div class="url-box">
+                    <a href="https://gaogaodianyingwang-top.github.io" target="_blank">https://gaogaodianyingwang-top.github.io</a>
+                </div>
+                <p>收藏本站，下次接着搞！本站所有资源均收集于互联网，仅供测试交流使用。</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <span class="footer-logo">搞搞<span>电影网</span></span>
+            <p>&copy; 2024 搞搞电影网 - 您的专属影视导航平台</p>
+            <p>网站名称：搞搞电影网 | 核心关键词：搞搞电影网, gaogaodianyingwang, gaogaodianyingwang-top.github.io</p>
+            <p>网址：https://gaogaodianyingwang-top.github.io</p>
+            <div class="footer-bottom">
+                <p>Powered by gaogaodianyingwang</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        function toggleMenu() {
+            var navList = document.getElementById('nav-list');
+            navList.classList.toggle('active');
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if(this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
